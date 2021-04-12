@@ -1,0 +1,13 @@
+﻿==> EncryptData()
+==> EncryptDecryptData()
+cryptPushData() ==> len: 20480, copied: 20480
+cryptPushData() ==> len: 20480, copied: 12094
+cryptPopData() ==> requested: 20480, copied: 20480
+cryptPopData() ==> requested: 20480, copied: 12282
+cryptPopData() ==> requested: 20480, copied: 0
+cryptPushData() ==> len: 20480, copied: 20480
+cryptPushData() ==> len: 20480, copied: 12282
+cryptPopData() ==> requested: 20480, copied: 20480
+cryptPopData() ==> requested: 20480, copied: 12288
+cryptPopData() ==> requested: 20480, copied: 0
+cryptPushData() ==> len: 20480, copied: 0

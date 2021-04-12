@@ -23,8 +23,8 @@ Private Type LIBRARY_INFO
   Copyright As String
 End Type
 
-Private Const PUSH_BUFFER_SIZE As Long = 2& * 1024& ' 2Kb
-Private Const POP_BUFFER_SIZE As Long = 2& * 1024&  ' 2Kb
+Private Const PUSH_BUFFER_SIZE As Long = 20& * 1024& ' 20Kb
+Private Const POP_BUFFER_SIZE As Long = 20& * 1024&  ' 20Kb
 
 '====================================================================
 Public Sub InitLibrary()
