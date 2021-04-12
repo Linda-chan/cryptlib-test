@@ -23,8 +23,8 @@ Private Type LIBRARY_INFO
   Copyright As String
 End Type
 
-Private Const PUSH_BUFFER_SIZE As Long = 20& * 1024& ' 4Kb
-Private Const POP_BUFFER_SIZE As Long = 20& * 1024&  ' 4Kb
+Private Const PUSH_BUFFER_SIZE As Long = 2& * 1024& ' 2Kb
+Private Const POP_BUFFER_SIZE As Long = 2& * 1024&  ' 2Kb
 
 '====================================================================
 Public Sub InitLibrary()
@@ -61,11 +61,13 @@ End Sub
 Public Function EncryptData(ByVal Text As String, _
                             ByVal password As String, _
                             Optional ByVal Algorithm As CRYPT_ALGO_TYPE = CRYPT_ALGO_AES) As String
+  Debug.Print "==> EncryptData()"
   EncryptData = EncryptDecryptData(Text, password, True, Algorithm)
 End Function
 
 Public Function DecryptData(ByVal Text As String, _
                             ByVal password As String) As String
+  Debug.Print "==> DecryptData()"
   DecryptData = EncryptDecryptData(Text, password, False)
 End Function
 
@@ -80,6 +82,8 @@ Private Function EncryptDecryptData(ByVal Text As String, _
   Dim CharIndex As Long
   Dim ResText As String
   Dim BytesPushed As Long
+  
+  Debug.Print "==> EncryptDecryptData()"
   
   If Not Initialized Then
     ErrText = "CryptLib library was not initialized"
@@ -162,6 +166,7 @@ Private Function PushData(ByVal hEnvelope As Long, _
   Dim RC As Long
   
   RC = cryptPushData(hEnvelope, Text, Len(Text), lpBytesCopied)
+  Debug.Print "cryptPushData() ==> len: " & Len(Text) & ", copied: " & lpBytesCopied
   If RC < CRYPT_OK Then
     If RC = CRYPT_ENVELOPE_RESOURCE Then
       If password = "" Then
@@ -193,6 +198,7 @@ Private Function FlushData(ByVal hEnvelope As Long, _
   Dim RC As Long
   
   RC = cryptFlushData(hEnvelope)
+  Debug.Print "cryptFlushData()"
   If RC < CRYPT_OK Then
     lpErrText = "Can't flush internal data." & GetCLErrorMessage(RC)
     GoTo hFinally
@@ -220,6 +226,7 @@ Private Function PopData(ByVal hEnvelope As Long, _
   
   Do
     RC = cryptPopData(hEnvelope, EnvelopedData, nEnvelopedData, bytesCopied)
+    Debug.Print "cryptPopData() ==> requested: " & nEnvelopedData & ", copied: " & bytesCopied
     If RC < CRYPT_OK Then
       lpErrText = "Can't ""pop"" data." & GetCLErrorMessage(RC)
       GoTo hFinally
